@@ -30,19 +30,16 @@ jobs:
         run: |
           npm ci
           npm run build
-
       - name: Configure git user
         run: |
           hub config --global user.name "github-actions[bot]"
           hub config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
       - name: Push
         run: |
           cd public_html
           hub init -b public_html
           hub add .
           hub commit -m "Build public_html [Github actions]"
-          echo hub remote add output https://Ashui-Idiot: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@github.com/Ashui-Idiot/unblockedSHS.git
-          hub remote add output https://Ashui-Idiot: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@github.com/Ashui-Idiot/unblockedSHS.git
+          echo hub remote add output https://${GITHUB_ACTOR}:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git
+          hub remote add output https://${GITHUB_ACTOR}:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git
           hub push -fu output public_html
-
